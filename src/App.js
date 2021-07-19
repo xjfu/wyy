@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { memo } from 'react'
+import {renderRoutes} from 'react-router-config'
+import {
+    HashRouter,
+} from 'react-router-dom'
+import routes from './router'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import XJFAppFooter from '@/components/appfooter'
+import XJFAppHeader from '@/components/appheader'
+import XJFPlayMusic from '@/pages/play/c-nps/bar'
+const App = memo(function App(props) {
+    return (
+        <HashRouter>
+                <XJFPlayMusic>
+                </XJFPlayMusic> 
+                <XJFAppHeader></XJFAppHeader>
 
-export default App;
+                
+                {
+                    renderRoutes(routes)
+                }
+               
+            
+            <XJFAppFooter></XJFAppFooter>
+            
+            
+        </HashRouter>
+
+    )
+})
+
+
+
+export default App

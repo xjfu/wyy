@@ -1,0 +1,15 @@
+export const RECOMMEND = "RECOMMEND"
+export const HOTRECOMMEND = "HOTRECOMMEND"
+export const TOPPLAYLIST = "TOPPLAYLIST"
+export const ALBUMNEWEST = "ALBUMNEWEST"
+export const TOPLISTQUICK = "TOPLISTQUICK"
+export const TOPLISTNEW = "TOPLISTNEW"
+export const TOPLISTORIGINAL = "TOPLISTORIGINAL"
+
+
+// 入驻歌手
+export const ARTISTLISTSINGER = "ARTISTLISTSINGER"
+
+
+
+    
