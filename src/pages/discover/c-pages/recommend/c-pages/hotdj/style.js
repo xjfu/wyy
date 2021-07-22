@@ -80,18 +80,22 @@ export const WrapHotDjC = styled.div `
            
        }
        .p {
-           text-overflow:ellipsis; 
-           height: 20px;
-           margin: 0 auto;
-           margin-top: 10px;
-           line-height: 20px;
-           width: 200px;
+            height: 20px;
+            margin: 0 auto;
+            margin-top: 10px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100px;
             .pa {
+              
+               
                 color:#000;
             }
        }
        .a {
-           
+            overflow: hidden;
+            text-overflow: ellipsis;
             color: #666;
        }
 

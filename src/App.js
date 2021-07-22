@@ -14,8 +14,6 @@ const App = memo(function App(props) {
                 <XJFPlayMusic>
                 </XJFPlayMusic> 
                 <XJFAppHeader></XJFAppHeader>
-
-                
                 {
                     renderRoutes(routes)
                 }

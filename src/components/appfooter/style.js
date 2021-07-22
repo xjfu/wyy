@@ -44,6 +44,7 @@ export const FooterLeft = styled.div `
     
     .pa {
         justify-content: space-between;
+       
         display: flex;
         width: 380px;
          a {

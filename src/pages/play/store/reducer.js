@@ -1,6 +1,9 @@
 // import aboutReducer from '../store/about/reducer'
 import {
-  SONGIOF
+  SONGIOF,
+  SONGLIST,
+  FIRSTLOAD,
+  PLAYSEQUENCE,
 } from './constants'
 import {Map} from 'immutable'
 const initState = Map({
@@ -74,7 +77,10 @@ const initState = Map({
             "mv": 14296677,
             "publishTime": 1622044800000
         }
-    ]
+    ],
+    songList: [],
+    firstLoad: true,
+    playSequence: 0, //0循环播放，1,随机播放
 })
 
 function songReducer(state = initState, action) {
@@ -82,9 +88,16 @@ function songReducer(state = initState, action) {
         case SONGIOF:
 
             return state.set('songInf', action.songInf)
+        case SONGLIST:
 
+            return state.set('songList', action.songList)
+
+        case FIRSTLOAD:
+            return state.set('firstLoad', action.firstLoad)
             
-
+        case PLAYSEQUENCE:
+            return state.set('playSequence', action.playSequence)
+        
         default:
             return state
 

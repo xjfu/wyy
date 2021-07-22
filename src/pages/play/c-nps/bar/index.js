@@ -7,14 +7,21 @@ import React, {
 } from 'react'
 import {
     useSelector,
-    shallowEqual
+    shallowEqual,
+    useDispatch,
 } from 'react-redux'
 import {
     WrapXJFPlayMusic,
-
+    WrapContainer,
 } from './style'
 import { Slider} from 'antd'
 import {NavLink} from 'react-router-dom'
+
+import SongList from '../bar/c-nps/list'
+import {
+    changePlaySequence,
+    changeCurrentIndexAndSongAction,
+} from '../../store/createaction'
 
 import {
     getImgFormat,
@@ -24,52 +31,60 @@ import {
 
 function XJFPlayMusic(props) {
     const audioref = useRef()
-    const [open, setopen] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false)
     const [prograss, setPrograss] = useState(0)
     const [isChange, setisChange] = useState(false)
-
+    const [listshow, setlistshow] = useState(false)
     const {
         songInf,
+        songList,
+        firstLoad,
+        playSequence,
     } = useSelector((state)=>({
-        songInf: state.play.get("songInf")
-        
+        songInf: state.play.get("songInf"),
+        songList:state.play.get("songList"),
+        firstLoad: state.play.get("firstLoad"),
+        playSequence: state.play.get("playSequence"),
     }), shallowEqual)
-  
+
+
+    const dispatch = useDispatch()
     useEffect(() => {
         audioref.current.src = getSongSrc(songInf[0].id)
-        setopen(true + Math.random())
-        console.log(audioref.current.currentTime)
-        audioref.current.play()
-        setisChange(false)
-    }, [songInf])
-    
-    
+        audioref.current.volume = 0.3;
+        if (!firstLoad) setIsPlaying(true + Math.random());
+  
+    }, [firstLoad, songInf])
+    useEffect(() => {
+        isPlaying && audioref.current.play()
+        
+    }, [isPlaying])
+    const changeSequence = ()=>{
+        let currentSequence = playSequence;
+        currentSequence++;
+        if (currentSequence > 2) {
+            currentSequence = 0
+        }
+        dispatch(changePlaySequence(currentSequence))
+    }
     const playMusic = useCallback(
         () => { 
-            
-            if (!open) {
-                audioref.current.play()
-                setopen(true)
-            } else {
-                audioref.current.pause()
-                setopen(false)
-            }
+            setIsPlaying(!isPlaying);
+            isPlaying ? audioref.current.pause() : audioref.current.play();
         },
-        [open],
+        [isPlaying],
     )
-    const updateTime = useCallback(
-        (e) => {
+    function updateTime(e){
+       
+            
+        if(!isChange) {
+            // 设置进度
+            setPrograss(audioref.current.currentTime / audioref.current.duration * 100)
+            
+        }
+        setisChange(false)
 
-            if(!isChange) {
-                // 设置进度
-                setPrograss(audioref.current.currentTime / audioref.current.duration * 100)
-                
-            }
-            setisChange(false)
-            
-        },
-        [isChange, setPrograss],
-    )
+    }
     const prograssOnchange = useCallback(
         (value) => {
      
@@ -84,33 +99,39 @@ function XJFPlayMusic(props) {
     const prograssAfterchange = useCallback(
         (value) => {
             audioref.current.currentTime = value / 100 * audioref.current.duration
-            setopen(true)
+            setIsPlaying(true)
             audioref.current.play();
         },
         [audioref],
     )
-
+    const changeSong = (tag)=>{
+        dispatch(changeCurrentIndexAndSongAction(tag));
+        setIsPlaying(true + Math.random())
+    }
+        
+       
       
     return (
-        <WrapXJFPlayMusic>
+        <WrapXJFPlayMusic playSequence={playSequence}>
             <div className="maincontainer sprite_player">
                 {
                     songInf.map((item, dt) => {
                         return <div className="w980 container " key={item.id}>
                 
                             <div className="btnplay">
-                                <div className="playprev sprite_player">
+                                <div className="playprev sprite_player " onClick={()=>{changeSong(-1)}}>
 
                                 </div>
                                 <div className = {
-                                    open ? "playopen sprite_player" : "playpause sprite_player"
+                                    isPlaying ? "playopen sprite_player" : "playpause sprite_player"
                                 }
                                 onClick = {
                                     e=>playMusic(e)
+                                    
                                 }>
 
                                 </div>
-                                <div className="playnext sprite_player">
+                                <div className="playnext sprite_player" onClick={(e) => changeSong(1)}>
                                     
                                 </div>
                             </div>
@@ -148,11 +169,22 @@ function XJFPlayMusic(props) {
                                 
                             </div>
                         
-                            <div className="btnplay"></div>
+                            <div className="btnlist">
+                                <div className={"sprite_player orderloop"} onClick={()=>{
+                                    changeSequence()
+                                }}>
+
+                                </div>
+                                <div className="list sprite_player" onClick={()=>{
+                                    setlistshow(!listshow)
+                                }}>{songList && songList.length}</div>
+                                
+                                
+                            </div>
 
                                 <audio ref = {
                                     audioref
-                                } onEnded={()=>{setopen(false)}}
+                                } onEnded={()=>{}}
                                 
                                 onTimeUpdate = {
                                     (e) => {
@@ -163,11 +195,18 @@ function XJFPlayMusic(props) {
                                 </audio>
                         </div>
                     })
-                    
                 }
-               
+
             </div>
-        </WrapXJFPlayMusic>
+
+            {
+           listshow && < WrapContainer >
+
+            < SongList >
+                
+            </SongList>
+        </WrapContainer>}
+       </WrapXJFPlayMusic>
     )
 }
 
