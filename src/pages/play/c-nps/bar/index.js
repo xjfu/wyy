@@ -21,6 +21,8 @@ import SongList from '../bar/c-nps/list'
 import {
     changePlaySequence,
     changeCurrentIndexAndSongAction,
+    getSongLyric,
+    changeSongLyricIndex,
 } from '../../store/createaction'
 
 import {
@@ -40,23 +42,30 @@ function XJFPlayMusic(props) {
         songList,
         firstLoad,
         playSequence,
+        songLyric,
+        songLyricIndex,
     } = useSelector((state)=>({
         songInf: state.play.get("songInf"),
         songList:state.play.get("songList"),
         firstLoad: state.play.get("firstLoad"),
         playSequence: state.play.get("playSequence"),
+        songLyric: state.play.get("songLyric"),
+        songLyricIndex: state.play.get("songLyricIndex"),
+        
     }), shallowEqual)
 
 
     const dispatch = useDispatch()
     useEffect(() => {
-        audioref.current.src = getSongSrc(songInf[0].id)
+        audioref.current.src = getSongSrc(songInf.id)
+        dispatch(getSongLyric(songInf.id))
         audioref.current.volume = 0.3;
         if (!firstLoad) setIsPlaying(true + Math.random());
   
-    }, [firstLoad, songInf])
+    }, [firstLoad, dispatch, songInf])
     useEffect(() => {
-        isPlaying && audioref.current.play()
+        isPlaying && audioref.current.play();
+        
         
     }, [isPlaying])
     const changeSequence = ()=>{
@@ -74,15 +83,30 @@ function XJFPlayMusic(props) {
         },
         [isPlaying],
     )
-    function updateTime(e){
-       
-            
+    function updateTime(e){  
+        // 设置当前歌词,设置index
+
+        let i = 0;
+        // console.log(songLyric[Math.floor(audioref.current.currentTime)])
+        for (; i < songLyric.length; i++) {
+            const item = songLyric[i];
+            if (item.t > e.target.currentTime * 1000) {
+                break
+            }
+        }
+        if (songLyricIndex !== i-1) {
+            dispatch(changeSongLyricIndex(i - 1))
+        }
+        
         if(!isChange) {
             // 设置进度
             setPrograss(audioref.current.currentTime / audioref.current.duration * 100)
             
         }
         setisChange(false)
+        
+        
+
 
     }
     const prograssOnchange = useCallback(
@@ -96,6 +120,7 @@ function XJFPlayMusic(props) {
         
         [],
     )
+
     const prograssAfterchange = useCallback(
         (value) => {
             audioref.current.currentTime = value / 100 * audioref.current.duration
@@ -104,19 +129,28 @@ function XJFPlayMusic(props) {
         },
         [audioref],
     )
+
     const changeSong = (tag)=>{
         dispatch(changeCurrentIndexAndSongAction(tag));
         setIsPlaying(true + Math.random())
     }
-        
+
+    const timeEndChangeSong = ()=>{
+        if (playSequence === 2) {
+            audioref.current.currentTime = 0
+            audioref.current.play()
+        } else {
+            changeSong(1)
+        }
+    }
        
       
     return (
         <WrapXJFPlayMusic playSequence={playSequence}>
             <div className="maincontainer sprite_player">
                 {
-                    songInf.map((item, dt) => {
-                        return <div className="w980 container " key={item.id}>
+                   
+                        <div className="w980 container " key={songInf.id}>
                 
                             <div className="btnplay">
                                 <div className="playprev sprite_player " onClick={()=>{changeSong(-1)}}>
@@ -138,23 +172,23 @@ function XJFPlayMusic(props) {
                             
                             
 
-                            <div className="btnimg"><img src={getImgFormat(item.al.picUrl, 34, 34)} alt="img"/></div>
+                            <div className="btnimg"><img src={getImgFormat(songInf.al.picUrl, 34, 34)} alt="img"/></div>
                             <div className="btnrange">
                                 <div className="header">
-                                    <NavLink to={"/song?id="+item.id} className="h_a">
-                                        {item.name}
+                                    <NavLink to={"/song?id="+songInf.id} className="h_a">
+                                        {songInf.name}
                                     </NavLink>
                                    
 
-                                    < NavLink className="h_b" to = {"/artist?id="+item.ar[0].id}>
-                                    {item.ar[0].name}
+                                    < NavLink className="h_b" to = {"/artist?id="+songInf.ar[0].id}>
+                                    {songInf.ar[0].name}
                                     </NavLink>
                                   
                                     <span >
-                                        {/* <span key={item.id}>{item.dt}</span> */}
+                                    
                                     
                                     </span>
-                                    <NavLink  to={"/song?id="+item.id}>
+                                    <NavLink  to={"/song?id="+songInf.id}>
                                         
                                     </NavLink>
                                 </div>
@@ -162,8 +196,8 @@ function XJFPlayMusic(props) {
                                     <Slider tipFormatter={null} defaultValue={0} disabled={false} onChange={prograssOnchange} onAfterChange={prograssAfterchange} value={prograss} />
                                         
                                     <span className="time">
-                                        <em>{getTimeFormat(prograss / 100 * item.dt)}</em>
-                                        {" / "+getTimeFormat(item.dt)}
+                                        <em>{getTimeFormat(prograss / 100 * songInf.dt)}</em>
+                                        {" / "+getTimeFormat(songInf.dt)}
                                     </span>
                                 </div>
                                 
@@ -184,7 +218,7 @@ function XJFPlayMusic(props) {
 
                                 <audio ref = {
                                     audioref
-                                } onEnded={()=>{}}
+                                } onEnded={timeEndChangeSong}
                                 
                                 onTimeUpdate = {
                                     (e) => {
@@ -194,15 +228,14 @@ function XJFPlayMusic(props) {
 
                                 </audio>
                         </div>
-                    })
+                   
                 }
 
             </div>
 
             {
            listshow && < WrapContainer >
-
-            < SongList >
+            <SongList>
                 
             </SongList>
         </WrapContainer>}

@@ -1,7 +1,17 @@
 export function getImgFormat(url, width, height) {
+   
     const path = url + "?param=" + width + "y" + height
     return path
+
+    
+    
 }
+
+export function getImgBlur(url) {
+    const path = url+"?imageView&blur=40x20"
+    return path
+}
+
 
 
 
@@ -33,4 +43,19 @@ export function getTimeFormat(d) {
 
 export function getSongSrc(id) {
     return "http://music.163.com/song/media/outer/url?id="+id
+}
+
+
+export function getParamSearch(parameSeach) {
+    const params = parameSeach.slice(1).split("&")
+    let o = {}
+    for (let i = 0; i < params.length; i++) {
+        const kv = params[i].split("=")
+        const key = kv[0]
+        const value = kv[1]
+        o[key] = value
+    }
+    return o
+    // ?id=1863201974 &&_hash=songlist-1860567964
+
 }

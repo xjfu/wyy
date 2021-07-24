@@ -8,6 +8,8 @@ import XJFDiscoverPlayList from '@/pages/discover/c-pages/playlist'
 import XJFDiscoverDjRadio from '@/pages/discover/c-pages/djradio'
 import XJFDiscoverArtist from '@/pages/discover/c-pages/artist'
 import XJFDiscoverAlbum from '@/pages/discover/c-pages/album'
+import XJFSongLyRic from '@/pages/play/songLyric'
+ 
 import React from 'react'
 
 import { Redirect } from "react-router-dom";
@@ -56,7 +58,7 @@ const routes = [
                 path: "/discover/album",
                 component: XJFDiscoverAlbum,
             },
-
+            
         ]
     },
     {
@@ -74,5 +76,10 @@ const routes = [
         // exact: true,
         component: XJFDownload,
     },
+    {
+        path: "/song",
+        component: XJFSongLyRic,
+    },
+  
 ]
 export default routes;

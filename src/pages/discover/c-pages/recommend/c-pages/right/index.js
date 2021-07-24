@@ -16,7 +16,9 @@ import {
     
 } from './style'
 import {DragLogin} from '@/components/drag'
-
+import {
+    hotRadios
+} from '@/common/local-data'
 function Btn(props) {
     return (
 
@@ -93,8 +95,25 @@ export default function SingerRight(props) {
                 <div className="spna">
                     <span >热门主播</span>
                 </div>
-                <div>
-
+                <div className="djridio">
+                    {hotRadios.map((item, index)=>{
+                        return <li key={item.name} className="djer">
+                                <div className="djimg">
+                                    <img src={getImgFormat(item.picUrl, 40, 40)} alt=""/>
+                                </div>
+                                <div className="djinf">
+                                   <p><NavLink to={item.url} className="djname">
+                                        {item.name}
+                                   </NavLink>
+                                    </p>
+                                   <p className="djps">
+                                        {item.position}
+                                   </p>
+                                </div>
+                                
+                                
+                            </li>
+                    })}
                 </div>
             </div>
             </WrapSingerRight >

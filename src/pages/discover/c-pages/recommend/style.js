@@ -105,10 +105,12 @@ export const TopBanner = styled.div `
 export const HotRecommend = styled.div `
     display: flex;
     background-color: white;
+
     .hotleft {
         width: 730px;
         padding: 20px 20px 40px;
-        
+        border-right: 1px solid #d4d4d4;
+        border-left: 1px solid #d4d4d4;
         /* background-color: gray; */
     }
 `

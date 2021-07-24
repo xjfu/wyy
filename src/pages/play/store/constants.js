@@ -8,6 +8,19 @@ export const SONGLIST = "SONGLIST"
 
 export const PLAYSEQUENCE = "PLAYSEQUENCE"
 
+// 当前播放歌曲index
+export const CURRENTSONGINDEX = "CURRENTSONGINDEX"
 
+// 歌词
+export const SONGLYRIC = "SONGLYRIC"
+
+// 歌词索引
+export const SONGLYRICINDEX = "SONGLYRICINDEX"
+
+//id 获取歌词
+export const SONGIDLYRICINF = "SONGIDLYRICINF"
+
+//id 获取歌曲详情
+export const SONGIDINF = "SONGIDINF"
 
     

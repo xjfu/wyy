@@ -3,14 +3,14 @@ import React, {
     
 } from 'react'
 import {
-    DiscoverWrapper, TopMenu
+    DiscoverWrapper, 
 } from './style'
-import {topMenu} from '@/common/local-data'
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
 import {renderRoutes} from 'react-router-config'
 // import recommend from './c-pages/recommend';
-
+import XJFTopMenu from '@/components/topmenu'
 // import routes from './router'
+
+// 
 function XJFDiscover(props) {
     const {
         route
@@ -18,7 +18,7 @@ function XJFDiscover(props) {
    
     return (
         <DiscoverWrapper>
-            <div className="discoverheader">
+            {/* <div className="discoverheader">
                 <div className="w1100 topMenu">
                     <TopMenu >
                         {topMenu.map((item, index)=>{
@@ -35,7 +35,11 @@ function XJFDiscover(props) {
                 
                 </div>
             
-            </div>
+            </div> */}
+
+           <XJFTopMenu></XJFTopMenu>
+           
+           
            {/* <div className="content"> */}
                 {
                     renderRoutes(route.routes)

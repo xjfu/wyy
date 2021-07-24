@@ -1,12 +1,12 @@
 import styled from "styled-components"
-export const WrapRight = styled.div`
+export const WrapRight = styled.div `
     
 `
 
 
 
 export const WrapSingerRight = styled.div ` 
-    border-left: 1px solid #d4d4d4;
+    /* border-left: 1px solid #d4d4d4; */
     .singerh {
         width: 250px;
         height: 126px;
@@ -41,6 +41,7 @@ export const WrapSingerRight = styled.div `
         
         padding: 10px 20px;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         width: 100%;
         .spna {
@@ -67,6 +68,59 @@ export const WrapSingerRight = styled.div `
             }
         }
        
+    }
+    
+    .djridio {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+
+        .djer {
+            display: flex;
+            margin-bottom: 10px;
+            width: 100%;
+            .djimg {
+                width: 40px;
+                
+                img {
+                    width: 100%;
+                }
+
+            }
+            .djinf {
+                display: flex;
+                flex-direction: column;
+                width: 160px;
+                line-height: 21px;
+                font-size: 12px;
+                margin-left: 10px;
+                p {
+                    margin-bottom: initial;
+                }
+                .djname {
+                    width: 100%;
+                    height: 20px;
+                   
+                    color: #000;
+                      
+                   
+                }
+                .djname:hover {
+                    text-decoration: underline;
+                }
+                .djps {
+                    /* width: 100%; */
+                   overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    color: #666;
+                    /* word-wrap: normal; */
+
+                }
+
+            }
+        }
     }
     .singerl {
 

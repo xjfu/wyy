@@ -1,11 +1,24 @@
 import styled from "styled-components"
+export const WrapXJFTopMenu = styled.div `
+    .discoverheader {
+        height: 30px;
+        background: #C20C0C;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        .topMenu {
+            /* background: blue; */
+            /* width: 100%; */
 
-export const DiscoverWrapper = styled.div`
-    
-    
+            height: 35px;
+            margin-top: -5px;
+        }
+    }
 `
-
 export const TopMenu = styled.div `
+
+    
+
     padding-left: 180px;
     display: flex;
     flex-direction: row;
