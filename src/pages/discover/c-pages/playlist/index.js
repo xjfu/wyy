@@ -1,15 +1,48 @@
 import React, {
-    memo
+    memo,
+    useEffect,
 } from 'react'
+import {
+    useSelector,
+    shallowEqual,
+    useDispatch,
+} from 'react-redux'
+import {
+    NavLink
+} from 'react-router-dom';
+import {WrapXJFDiscoverPlaylist} from './style'
+import {getPlayListAction} from './store/createaction';
+function XJFDiscoverPlaylist(props) {
+    const dispatch = useDispatch()
 
-function XJFDiscoverRecommend(props) {
+    useEffect(() => {
+        dispatch(getPlayListAction())
+        
+    }, [dispatch])
+    const {
+        playList
+    } = useSelector((state)=>({
+        playList:state.playList.get("playList")
+    }),shallowEqual)
     return (
-        <h1>playlist</h1>
+        <WrapXJFDiscoverPlaylist>
+            <div className="w980">
+                {playList.map((item, index)=>{
+                    return <li key={item.id}>
+                        <NavLink to={"/playlist?id="+item.id}>
+                            {item.name}
+                        </NavLink>
+                        
+                    </li>
+                })}
+            </div>
+        </WrapXJFDiscoverPlaylist>
+        
     )
 }
 
 
-export default memo(XJFDiscoverRecommend);
+export default memo(XJFDiscoverPlaylist);
 
 
 

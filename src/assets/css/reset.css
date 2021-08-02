@@ -25,6 +25,7 @@ th,
 ins {
     padding: 0;
     margin: 0;
+    margin-bottom: initial;
 }
 
 ul,

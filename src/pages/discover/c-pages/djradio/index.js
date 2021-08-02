@@ -1,15 +1,41 @@
 import React, {
-    memo
+    memo,
+    useEffect,
 } from 'react'
 
-function XJFDiscoverRecommend(props) {
+import {
+    shallowEqual,
+    useSelector, useDispatch,
+} from 'react-redux';
+import {  } from '../../../../services/djradio';
+import { getDjProgramRecommendAction } from './store/createaction';
+import {WrapXJFDjradio} from './style';
+function XJFDjradio(props) {
+    const dispatch = useDispatch()
+    const {
+        djProgramRecommend,
+    } = useSelector((state) => ({
+        djProgramRecommend:state.djradio.get("djProgramRecommend")
+    }), shallowEqual)
+    useEffect(() => {
+        dispatch(getDjProgramRecommendAction())
+    }, [dispatch])
     return (
-        <h1>djradio</h1>
+        <WrapXJFDjradio>
+            <div className="w980">
+                {djProgramRecommend.map((item, index)=>{
+                        return <li key={item.name}>
+                            {item.name}
+                        </li>
+                    })
+                }
+            </div>
+        </WrapXJFDjradio>
     )
 }
 
 
-export default memo(XJFDiscoverRecommend);
+export default memo(XJFDjradio);
 
 
 

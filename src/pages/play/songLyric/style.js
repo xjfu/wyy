@@ -7,7 +7,11 @@ export const WrapXJFSongLyRic = styled.div `
     .container {
         display: flex;
             border-left: 1px solid #d3d3d3;
-    border-right: 1px solid #d3d3d3;
+        border-right: 1px solid #d3d3d3;
+    }
+    .cmt {
+        padding: 47px 30px 40px 39px;
+}
     }
     
 `
@@ -15,6 +19,7 @@ export const WrapLeft = styled.div `
     width: 710px;
     background-color: #fff;
     border-right: 1px solid #d3d3d3;
+
 `
 export const WrapRight = styled.div `
     width: 270px;

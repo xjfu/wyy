@@ -5,11 +5,11 @@
 //     }
 // }
 // export default addAction;
-import axios from 'axios'
+// import axios from 'axios'
 
-import {
-    RECOMMEND,
-} from './constants.js'
+// import {
+//     RECOMMEND,
+// } from './constants.js'
 // 推荐
 
 
@@ -29,41 +29,24 @@ import {
     
 // }
 
-export const getRecommandAction = (recommends) => {
-    return {
-        type: RECOMMEND,
-        recommend:recommends,
-    }
-}
+// export const getRecommandAction = (recommends) => {
+//     return {
+//         type: RECOMMEND,
+//         recommend:recommends,
+//     }
+// }
 
 
 // redux-saga 拦截的action
-export const changeRecommandAction = (dispatch) => {
-    axios({
-    url: "http://123.207.32.32:8000/home/multidata",
+// export const changeRecommandAction = (dispatch) => {
+//     axios({
+//     url: "http://123.207.32.32:8000/home/multidata",
 
-    }).then((res) => {
-        const data = res.data.data
-        console.log("data,", data)
+//     }).then((res) => {
+//         const data = res.data.data
+//         console.log("data,", data)
 
-        dispatch(getRecommandAction(data.banner.list))
-    })
+//         dispatch(getRecommandAction(data.banner.list))
+//     })
 
-}
-    // return {
-    //     type: RECOMMEND,
-    //     recommend: recommends,
-    // }
-
-// return (dispatch) => {
-    //     axios({
-    //     url: "http://123.207.32.32:8000/home/multidata",
-
-    //     }).then((res) => {
-    //         const data = res.data.data
-    //         console.log("data,", data)
-
-    //         dispatch(getRecommandAction(data.banner.list))
-    //     })
-    // }
-
+// }

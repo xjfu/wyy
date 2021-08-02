@@ -133,10 +133,11 @@ export const topListQuick = (topListQuick) => {
 export const getTopListQuick = (id) => {
     return (dispatch) => {
         instance({
-            method: 'post',
+            method: 'get',
             url: '/playlist/detail',
             params: {
-                id: id
+                id: id,
+                withCredentials: true,
             }
         }).then(res => {
             // console.log(res)
@@ -226,3 +227,5 @@ export const getArtistListSinger = () => {
     }
 
 }
+
+

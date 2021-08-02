@@ -27,7 +27,7 @@ export default function HotDjC(props) {
     const {
         albumNewest,
     } = useSelector((state) => ({
-        albumNewest: state.recommend.albumNewest
+        albumNewest: state.recommend.get("albumNewest")
     }))
     const buttonref = useRef()
   

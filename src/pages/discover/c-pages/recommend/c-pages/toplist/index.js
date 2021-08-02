@@ -28,9 +28,9 @@ function TopList(props) {
         topListNew,
         topListOrigin,
     } = useSelector((state) => ({
-        topListQuick: state.recommend.topListQuick || [],
-        topListNew: state.recommend.topListNew || [],
-        topListOrigin: state.recommend.topListOrigin || [],
+        topListQuick: state.recommend.get("topListQuick") || [],
+        topListNew: state.recommend.get("topListNew") || [],
+        topListOrigin: state.recommend.get("topListOrigin") || [],
     }), shallowEqual)
     const dispatch = useDispatch()
     
@@ -49,6 +49,7 @@ function TopList(props) {
             <XJFTopcps typeList={topListOrigin} title="原创榜" id="2884035"titleImg="http://p4.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=100y100"></XJFTopcps>
         </div>
     </WrapTopList>
+    
     )
 }
 

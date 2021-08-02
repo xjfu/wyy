@@ -23,4 +23,8 @@ export const SONGIDLYRICINF = "SONGIDLYRICINF"
 //id 获取歌曲详情
 export const SONGIDINF = "SONGIDINF"
 
-    
+// 歌曲评论
+export const COMMENTS = "COMMENTS"
+
+// 分页组件当前index
+export const DPINDEX = "DPINDEX"

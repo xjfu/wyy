@@ -16,12 +16,13 @@ function PagesMap(props) {
     const [idx, setidx] = useState(1)
     const dispatch = useDispatch()
     const {
-        allPage
+        allPage, 
     } = props 
     
     useEffect(() => {
         dispatch(dpIndexAction(idx))
     }, [dispatch, idx])
+
     const changePage = useCallback(
         (index) => {
             
@@ -35,7 +36,22 @@ function PagesMap(props) {
         },
         [idx, allPage],
     )
-    if (idx < 6) {
+    if (idx < 6 && allPage<=9) {
+        return <> 
+        <button onClick={(e)=>{changePage(-1)}}>
+            上一页
+        </button>
+        {/* <span onClick={(e)=>{setidx(idx=>idx=1)}}  className={1 === idx?"active":"zpgi"}>1</span> */}
+            {new Array(allPage).fill(0).map((item, index)=>{
+                return <span onClick={(e)=>{setidx(idx=>idx=index+1)}}  className={index === idx-1?"active":"zpgi"} key={index} >{index+1}</span>
+            })}
+            
+        {/* <span onClick={(e)=>{setidx(idx=>idx=allPage)}} className={allPage === idx?"active":"zpgi"}>{allPage}</span> */}
+        <button onClick={(e)=>{changePage(1)}} >
+            下一页
+        </button>
+    </> 
+    } else if (idx < 6) {
         return <> 
         <button onClick={(e)=>{changePage(-1)}}>
             上一页
@@ -90,9 +106,12 @@ function PagesMap(props) {
 
 function XJFDbpages(props) {
     
-    const {count} = props
+    const {
+        count, 
+        onePage,
+    } = props
     
-    const allPage = Math.ceil(parseInt(count) / 20) || 0
+    const allPage = Math.ceil(parseInt(count) / onePage) || 0
     
     
         return(

@@ -34,7 +34,7 @@ function XJFLyRic(props) {
                         songIdLyricInf.slice(0, 13).map((item, index) => {
                             return <li key={index}>
                             
-                            {item.content}
+                            {item.content} <br/>
                         </li>
                     
                     })}
@@ -44,7 +44,7 @@ function XJFLyRic(props) {
                             songIdLyricInf.slice(13).map((item, index) => {
                                 return <li key={index}>
                                 
-                                {item.content}
+                                {item.content}<br/>
                                 </li>
                             })
                         }  

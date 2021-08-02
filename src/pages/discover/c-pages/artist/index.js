@@ -1,15 +1,33 @@
 import React, {
-    memo
+    memo,
 } from 'react'
+import {
+    WrapXJFDiscoverArtist,
+    Wrapright,
+    WrapLeft,
 
-function XJFDiscoverRecommend(props) {
+} from './style'
+import ArtistLeft from '../artist/artistleft'
+import ArtistRight from '../artist/artistright'
+function XJFDiscoverArtist(prbops) {
+    
+
     return (
-        <h1>artist</h1>
+        <WrapXJFDiscoverArtist>
+            <div className="w980 container">
+                <WrapLeft>
+                    <ArtistLeft/>
+                </WrapLeft>
+                <Wrapright>
+                    <ArtistRight />
+                </Wrapright>
+            </div>
+        </WrapXJFDiscoverArtist>
     )
 }
 
 
-export default memo(XJFDiscoverRecommend);
+export default memo(XJFDiscoverArtist);
 
 
 

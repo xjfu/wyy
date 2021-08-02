@@ -9,6 +9,8 @@ import {
   SONGLYRICINDEX,
   SONGIDLYRICINF,
   SONGIDINF,
+  COMMENTS,
+  DPINDEX,
 } from './constants'
 import {Map} from 'immutable'
 const initState = Map({
@@ -299,7 +301,10 @@ const initState = Map({
     songLyric: [],
     songIdLyricInf: [],
     songIdInf:{},
-    
+    comments:{},
+
+    // 分页index
+    dpIndex: 1,
 })
 
 function songReducer(state = initState, action) {
@@ -327,7 +332,11 @@ function songReducer(state = initState, action) {
         case SONGIDLYRICINF:
             return state.set("songIdLyricInf", action.songIdLyricInf)
         case SONGIDINF:
-                return state.set("songIdInf", action.songIdInf)
+            return state.set("songIdInf", action.songIdInf)
+        case COMMENTS:
+            return state.set("comments", action.comments)
+        case DPINDEX:
+             return state.set("dpIndex", action.dpIndex)
         default:
             return state
 

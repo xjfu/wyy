@@ -8,9 +8,12 @@ import {
     TOPLISTNEW,
     TOPLISTORIGINAL,
     ARTISTLISTSINGER,
+    
 } from './constants'
-
-const initState = {
+import {
+    Map
+} from 'immutable'
+const initState = Map({
     recommend:[],
     hotRecommend: [],
     topPlayList:[],
@@ -19,52 +22,40 @@ const initState = {
     topListNew: [],
     topListOrigin:[],
     artistListSinger:[],
-}
+    // 歌单
+    playList:[],
+    // 歌单详情
+    playListDetail:{},
+})
 
 function aboutReducer(state = initState, action) {
     switch (action.type) {
         case RECOMMEND:
+            return state.set("recommend", action.recommend)
 
-            return {
-                ...state,
-                recommend: action.recommend
-            }
+            
         case HOTRECOMMEND:
-            return {
-                ...state,
-                hotRecommend: action.hotRecommend
-            }
+            return state.set("hotRecommend", action.hotRecommend)
+           
         case TOPPLAYLIST:
-            return {
-                ...state,
-                topPlayList: action.topPlayList
-            }
+            return state.set("topPlayList", action.topPlayList)
+            
         case ALBUMNEWEST:
-            return {
-                ...state,
-                albumNewest: action.albumNewest
-            }
+            return state.set("albumNewest", action.albumNewest)
          case TOPLISTQUICK:
-             return {
-                 ...state,
-                 topListQuick: action.topListQuick
-             }
+            return state.set("topListQuick", action.topListQuick)
+
+           
 
         case TOPLISTNEW:
-            return {
-                ...state,
-                topListNew: action.topListNew
-            }
+            return state.set("topListNew", action.topListNew)
+            
         case TOPLISTORIGINAL:
-            return {
-                ...state,
-                topListOrigin: action.topListOrigin
-            }
+            return state.set("topListOrigin", action.topListOrigin)
+           
         case ARTISTLISTSINGER:
-            return {
-                ...state,
-                artistListSinger: action.artistListSinger
-            }
+
+            return state.set("artistListSinger", action.artistListSinger)
         default:
             return state
 

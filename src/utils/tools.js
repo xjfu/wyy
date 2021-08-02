@@ -1,3 +1,10 @@
+// import moment from 'moment'
+var moment = require('moment');
+moment.locale();
+
+
+export const log = console.log.bind(console)
+
 export function getImgFormat(url, width, height) {
    
     const path = url + "?param=" + width + "y" + height
@@ -56,6 +63,44 @@ export function getParamSearch(parameSeach) {
         o[key] = value
     }
     return o
+    // ?id=1863201974 &&_hash=songlist-1860567964
+
+}
+
+// 时间戳转换
+
+export function formMatDate(time) {
+    const now = new Date().getTime()
+    const start = Math.floor(time / 1000)
+    const end = Math.floor(now / 1000)
+    const durationTime = end - start
+
+    if (durationTime < 60) {
+        return "刚刚"
+    } else if ((durationTime) >= 60 && (durationTime) < 60 * 60) {
+        
+        return parseInt(durationTime / 60) + "分钟前"
+    } 
+
+    let o_y = moment(time).get('year')
+    let y = moment(now).get('year')
+    let o_m = moment(time).get("month") + 1
+    let m = moment(now).get("month") + 1
+    let o_d = moment(time).get('date')
+    let d = moment(now).get('date')
+    let hms = moment(time).format("HH:mm:ss")
+    if (o_y === y && o_m === m && o_d === d) {
+        return hms
+    } else if (o_y === y && o_m === m && o_d === d - 1) {
+        return "昨天" + hms
+    } else if (o_y === y) {
+        return o_m + "月" + o_d + "日" + hms
+    }
+     else {
+        return o_y + "年" + o_m + "月"+o_d + "日" + hms
+    }
+    
+
     // ?id=1863201974 &&_hash=songlist-1860567964
 
 }

@@ -172,7 +172,7 @@ function XJFPlayMusic(props) {
                             
                             
 
-                            <div className="btnimg"><img src={getImgFormat(songInf.al.picUrl, 34, 34)} alt="img"/></div>
+                            <div className="btnimg"><img src={getImgFormat(songInf && songInf.al.picUrl, 34, 34)} alt="img"/></div>
                             <div className="btnrange">
                                 <div className="header">
                                     <NavLink to={"/song?id="+songInf.id} className="h_a">

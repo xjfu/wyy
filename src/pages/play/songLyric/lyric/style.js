@@ -22,6 +22,10 @@ export const WrapXJFLyRic = styled.div `
             }
         }
         .right {
+            li {
+                display: block;
+                
+            }
             font-size:12px;
             .close {
                 display: none;

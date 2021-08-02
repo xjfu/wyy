@@ -1,14 +1,16 @@
 import React, {
     memo,
     useState,
-    useCallback,
+    
 } from 'react'
 import {NavLink} from 'react-router-dom'
 import {
+    
     useDispatch,
 } from 'react-redux'
 import {
-    getSongDetail
+    getSongDetail,
+    changeFirstLoad,
 } from '@/pages/play/store/createaction'
 
 
@@ -20,15 +22,13 @@ function XJFTopcps(props) {
         titleImg,
         id,
     } = props
+   
     const [currentIndex, setcurrentIndex] = useState(-1)
     const dispatch = useDispatch()
-    const playMusic = useCallback(
-        (id) => {
-            
-            dispatch(getSongDetail(id))
-        },
-        [dispatch],
-    )
+    const playMusic = (id) => {
+        dispatch(getSongDetail(id))
+        dispatch(changeFirstLoad(false))
+    }
     return <>
           <div className="left listtopall" >
                 <dt className="listtop">

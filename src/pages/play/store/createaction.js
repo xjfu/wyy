@@ -2,6 +2,7 @@ import {
     FIRSTLOAD,
     SONGIOF,
     SONGLIST,
+    
 } from './constants.js'
 import * as actionType from './constants'
 import instance from '@/services/request'
@@ -232,3 +233,44 @@ export const getSongIdInf = (id) => {
 
 }
 
+// 获取歌曲评论
+
+export const songComments = (comments) => {
+    return {
+        type: actionType.COMMENTS,
+        comments: comments,
+    }
+}
+
+export const getSongComments = (id, limit, offset) => {
+    return (dispatch, getState) => {
+        instance({
+            method: 'get',
+            url: '/comment/music',
+            params: {
+                id: id,
+                
+                limit: limit,
+                offset: offset,
+            }
+        }).then(res => {
+
+            // 添加到播放列表
+
+            dispatch(songComments(res))
+
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+}
+
+
+
+export const dpIndexAction = (dpIndex) => {
+    return {
+        type: actionType.DPINDEX,
+        dpIndex: dpIndex,
+    }
+}

@@ -40,7 +40,7 @@ function HotHeaderC(props) {
          topPlayList,
      } = useSelector((state) => ({
         
-         topPlayList: state.recommend.topPlayList||[],
+         topPlayList: state.recommend.get("topPlayList")||[],
      }))
 
      const dispatch = useDispatch()
@@ -81,8 +81,8 @@ function XJFDiscoverRecommend(props) {
         banners,
         playlists,
     } = useSelector((state) => ({
-        banners: state.recommend.recommend || [],
-        playlists: state.recommend.hotRecommend || [],
+        banners: state.recommend.get("recommend") || [],
+        playlists: state.recommend.get("hotRecommend") || [],
     }))
     const dispatch = useDispatch()
     useEffect(() => {
