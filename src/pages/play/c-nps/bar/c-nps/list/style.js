@@ -2,8 +2,6 @@ import styled from "styled-components"
 export const WrapSongList = styled.div `
     width: 100%;
     height: 100%;
-    background-position: -1014px 0;
-    background-repeat: repeat-y;
     
     .list {
         
@@ -11,9 +9,10 @@ export const WrapSongList = styled.div `
         
     }
     .listhd {
-        background-position: -17px 0;
+        background-position: -0px 0;
+
         height: 41px;
-        margin-left: 5px;
+        /* margin-left: 5px; */
         h4 {
             position: absolute;
             left: 25px;
@@ -47,7 +46,9 @@ export const WrapSongList = styled.div `
         }
     }
     .listbd {
-        
+        background-position: -1014px 0;
+        background-repeat: repeat-y;
+
         display: flex;
         height: 260px;
         .imgbg {
@@ -56,7 +57,7 @@ export const WrapSongList = styled.div `
             top: -1px;
             width: 100%;
             height: 300px;
-            opacity: .2;
+            opacity: .02;
             z-index: 2;
         }
         .left {
@@ -64,7 +65,20 @@ export const WrapSongList = styled.div `
             height: 258px;
             overflow: auto;
             z-index: 5;
-            .sli {
+            color: #ccc;
+            margin-left: 4px;
+            
+            li:hover {
+                background-color:rgba(0, 0, 0, 0.3);
+            }
+            .active {
+                background-color:rgba(0, 0, 0, 0.3);
+                .col {
+                    opacity: 1;
+
+                }
+            }
+            /* .sli {
                 display: flex;
                 justify-content: space-between;
                 padding-left: 20px;
@@ -78,7 +92,21 @@ export const WrapSongList = styled.div `
                 .lit {
                     width: 50px;
                 }
-            }
+                a {
+                    color: #9f9f9f;
+                    
+                }
+                :hover {
+                    a {
+                        color: #fff;
+                        :hover {
+                            text-decoration: underline;
+                        }
+                    }
+                    color:#fff;
+                }
+            } */
+            
             ::-webkit-scrollbar-thumb:horizontal {
                 /*水平滚动条的样式*/
                     width: 4px;
@@ -86,7 +114,7 @@ export const WrapSongList = styled.div `
                     border-radius: 4px;
             }
             ::-webkit-scrollbar-track-piece {
-                background-color: #1a1a1a; /*滚动条的背景颜色*/
+                background-color: #000000; /*滚动条的背景颜色*/
                 border-radius: 0; /*滚动条的圆角宽度*/
             }
             ::-webkit-scrollbar {
@@ -96,13 +124,26 @@ export const WrapSongList = styled.div `
             ::-webkit-scrollbar-thumb:vertical {
             /*垂直滚动条的样式*/
                 height: 50px;
-                background-color: #9f9f9f;
+                background-color: #868686;
                 border-radius: 4px;
             /* outline: 2px solid #000; */
             /* outline-offset: -2px; */
-                border: 2px solid #9f9f9f;
+                border: 1px solid #a6a6a6;
+                opacity: .8;
             }
         }
+        .bline {
+                position: absolute;
+                left: 546px;
+                
+                top: 40px;
+                z-index: 2;
+                width: 10px;
+                height: 260px;
+                background: #000;
+                opacity: .5;
+                filter: Alpha(opacity=50);
+            }
         .right {
             .content {
                 padding: 20px 20px;

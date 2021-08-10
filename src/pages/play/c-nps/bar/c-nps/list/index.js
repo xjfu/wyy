@@ -6,11 +6,13 @@ import React, {
 import {
     useSelector,
     shallowEqual,
+    useDispatch,
+    
 } from 'react-redux'
 import {
     WrapSongList,
 } from './style'
-
+import ListItem from './item/index';
 import {
     getTimeFormat,
     getImgBlur,
@@ -19,6 +21,10 @@ import {
 import {
     scrollTo
 } from '@/utils/playlist'
+import {
+    songDetail
+} from '../../../../store/createaction';
+
 function SongList(props) {
      const {
          songList,
@@ -33,26 +39,18 @@ function SongList(props) {
 
      }), shallowEqual)
     const panelRef = useRef()
-    
-
-     useEffect(() => {
-     
-  
-        
-       
-        
-        // document.querySelector('.active').scrollIntoView({
-        //     behavior: "smooth",
-        //     block: "center",
-        //     inline: "nearest"
-        // })
-
+    // const length = songList.length
+    const dispatch = useDispatch()
+    useEffect(() => {
         scrollTo(panelRef.current, (songLyricIndex - 3) * 39, 300)
-
-     }, [songLyricIndex])
-    
+        
+        }, [songLyricIndex, songList])
+    const playMusic = (item)=>{
+        
+        dispatch(songDetail(item))
+    }
     return (
-        <WrapSongList className="playlist_bg ">
+        <WrapSongList className="">
             <div className="list">
                 <div className="listhd playlist_bg">
                     <h4>
@@ -62,29 +60,21 @@ function SongList(props) {
                     </h4>
                     <div className="addall" rel="noopener noreferrer" data-action="likeall"><span className="playlist ico ico-add"></span>收藏全部</div>              
                 </div>
-                <div className="listbd">
+                <div className="listbd playlist_bg">
                     <img src={getImgBlur(songInf.al.picUrl)} alt="hh" className="imgbg"/>
                     
                     <div className="left">  
                         <ul>
                             {
                                 songList.map((item, index) => {
-                                return <li key={item.name} data-id={item.id} className="sli">
-                                    <div className="lin">
-                                        {
-                                            item.name
-                                        }
-                                    </div>
-                                    <div className="lirn">
-                                        {item.ar[0].name}
-                                    </div>
-                                    <div className="lit">
-                                        {getTimeFormat(item.dt)}
-                                    </div>
-                                </li>
+                                return <li onClick={(e)=>{playMusic(item)}} key={item.id} className={songInf.id === item.id? "active": ""}>
+                                    <ListItem key={item.id} songId={item.id} name={item.name} artist={item.ar[0].name} time={getTimeFormat(item.dt)} artistId={item.ar[0].id} />
+                                    </li>
                             })}
                         </ul>
+                        {songList.length === 0 && <span>去首页发现音乐，或在我的音乐收听自己收藏的歌单。</span>} 
                     </div>
+                    <div className="bline j-flag"></div>
                     <div className="right" ref={panelRef}>
                         <div className="content" >
                             {
@@ -95,11 +85,14 @@ function SongList(props) {
                             }
                         </div>
                     </div>
-                    < div className="msk">
+                    <div className="msk">
 
                     </div>
+                     
                 </div>
+           
             </div>
+
        </WrapSongList>
     )
 }

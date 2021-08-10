@@ -2,10 +2,10 @@ import styled from "styled-components"
 
 export const WrapXJFPlayMusic = styled.div `
     position: fixed;
-    bottom: 0;
+    bottom: -0px; //-42px
     height: 50px;
     width: 100%;
-    
+    transition: bottom 0.3s linear 0s;
     color: #fff;
     z-index: 2000;
     .maincontainer {
@@ -14,6 +14,43 @@ export const WrapXJFPlayMusic = styled.div `
         margin: 0 auto;
         background-position: 0 0;
         background-repeat: repeat-x;
+        .updn {
+            width: 100%;
+            position: absolute;
+            top: -11px;
+            height: 20px;
+            display: flex;
+            flex-direction: row-reverse;
+            
+            .left {
+                position: absolute;
+                top: -3px;
+                right: 9px;
+                width: 52px;
+                height: 67px;
+                background-position: 0 -380px;
+                .btn {
+                    display: block;
+                    width: 18px;
+                    height: 18px;
+                    margin: 6px 0 0 17px;
+                    
+                }
+                
+            }
+            .clock_close{
+                .btn {
+                    background-position: -100px -380px;
+                }
+                
+                
+            }
+            .clock_open {
+                .btn {
+                    background-position: -80px -380px;
+                }
+            }
+        }
         .container {
         
             height: 100%;
@@ -176,6 +213,7 @@ export const WrapXJFPlayMusic = styled.div `
                     cursor: pointer;
                 }
             }
+            
         }
     }
 

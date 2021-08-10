@@ -24,19 +24,26 @@ import {
     getSongLyric,
     changeSongLyricIndex,
 } from '../../store/createaction'
-
+import {
+    CSSTransition
+} from 'react-transition-group'
 import {
     getImgFormat,
     getTimeFormat,
     getSongSrc,
 } from '@/utils/tools'
-
+import {
+    upTo
+} from '@/utils/playlist';
+import { CodeSandboxCircleFilled } from '@ant-design/icons'
 function XJFPlayMusic(props) {
     const audioref = useRef()
+    const upPannel = useRef()
     const [isPlaying, setIsPlaying] = useState(false)
     const [prograss, setPrograss] = useState(0)
     const [isChange, setisChange] = useState(false)
     const [listshow, setlistshow] = useState(false)
+    
     const {
         songInf,
         songList,
@@ -65,8 +72,6 @@ function XJFPlayMusic(props) {
     }, [firstLoad, dispatch, songInf])
     useEffect(() => {
         isPlaying && audioref.current.play();
-        
-        
     }, [isPlaying])
     const changeSequence = ()=>{
         let currentSequence = playSequence;
@@ -111,7 +116,6 @@ function XJFPlayMusic(props) {
     }
     const prograssOnchange = useCallback(
         (value) => {
-     
             setisChange(true)
             
             setPrograss(value)
@@ -135,7 +139,7 @@ function XJFPlayMusic(props) {
         setIsPlaying(true + Math.random())
     }
 
-    const timeEndChangeSong = ()=>{
+    const timeEndChangeSong = () => {
         if (playSequence === 2) {
             audioref.current.currentTime = 0
             audioref.current.play()
@@ -143,103 +147,158 @@ function XJFPlayMusic(props) {
             changeSong(1)
         }
     }
+    // const [isIn, setisIn] = useState(false)
+    const [isClock, setisClock] = useState(false)
+
+    // const handleMove = () => {
+    //     upPannel.current.style.bottom = "0px";
+    // }
+    // const handleOut = () =>{
+    //     // if (!isClock) {
+    //     //     upPannel.current.style.bottom = "-42px"
+    //     // }
+    //     setTimeout(() => {
+    //         console.log(isClock);
+    //         if (!isClock) {
+    //             upPannel.current.style.bottom = "-42px"
+    //         } else {
+    //             upPannel.current.style.bottom = "0px"
+    //         }
+    //     },1000);
        
-      
+    // }
+
     return (
-        <WrapXJFPlayMusic playSequence={playSequence}>
-            <div className="maincontainer sprite_player">
-                {
-                   
-                        <div className="w980 container " key={songInf.id}>
-                
-                            <div className="btnplay">
-                                <div className="playprev sprite_player " onClick={()=>{changeSong(-1)}}>
 
-                                </div>
-                                <div className = {
-                                    isPlaying ? "playopen sprite_player" : "playpause sprite_player"
-                                }
-                                onClick = {
-                                    e=>playMusic(e)
-                                    
-                                }>
 
-                                </div>
-                                <div className="playnext sprite_player" onClick={(e) => changeSong(1)}>
-                                    
-                                </div>
-                            </div>
+        <WrapXJFPlayMusic playSequence = {
+            playSequence
+        }
+        ref = {
+            upPannel
+        }
+        // onMouseMove = {
+        //     (e) => {
+        //         handleMove(e)
+        //     }
+        // }
+        // onMouseOut = {
+        //     (e) => {
+        //         handleOut(e)
+        //     }
+        // } 
+        >
+            
+
+
+                <div className="maincontainer sprite_player">
+                    
+                    {
                             
-                            
-
-                            <div className="btnimg"><img src={getImgFormat(songInf && songInf.al.picUrl, 34, 34)} alt="img"/></div>
-                            <div className="btnrange">
-                                <div className="header">
-                                    <NavLink to={"/song?id="+songInf.id} className="h_a">
-                                        {songInf.name}
-                                    </NavLink>
-                                   
-
-                                    < NavLink className="h_b" to = {"/artist?id="+songInf.ar[0].id}>
-                                    {songInf.ar[0].name}
-                                    </NavLink>
-                                  
-                                    <span >
-                                    
-                                    
-                                    </span>
-                                    <NavLink  to={"/song?id="+songInf.id}>
-                                        
-                                    </NavLink>
-                                </div>
-                                <div className="btm">
-                                    <Slider tipFormatter={null} defaultValue={0} disabled={false} onChange={prograssOnchange} onAfterChange={prograssAfterchange} value={prograss} />
-                                        
-                                    <span className="time">
-                                        <em>{getTimeFormat(prograss / 100 * songInf.dt)}</em>
-                                        {" / "+getTimeFormat(songInf.dt)}
-                                    </span>
-                                </div>
+                            <div className="w980 container " key={songInf.id}>
                                 
-                            </div>
-                        
-                            <div className="btnlist">
-                                <div className={"sprite_player orderloop"} onClick={()=>{
-                                    changeSequence()
-                                }}>
+                                <div className="btnplay">
+                                    <div className="playprev sprite_player " onClick={()=>{changeSong(-1)}}>
 
-                                </div>
-                                <div className="list sprite_player" onClick={()=>{
-                                    setlistshow(!listshow)
-                                }}>{songList && songList.length}</div>
-                                
-                                
-                            </div>
-
-                                <audio ref = {
-                                    audioref
-                                } onEnded={timeEndChangeSong}
-                                
-                                onTimeUpdate = {
-                                    (e) => {
-                                        updateTime(e)
+                                    </div>
+                                    <div className = {
+                                        isPlaying ? "playopen sprite_player" : "playpause sprite_player"
                                     }
-                                }>
+                                    onClick = {
+                                        e=>playMusic(e)
+                                        
+                                    }>
+
+                                    </div>
+                                    <div className="playnext sprite_player" onClick={(e) => changeSong(1)}>
+                                        
+                                    </div>
+                                </div>
+                                
+                                
+
+                                <div className="btnimg"><img src={getImgFormat(songInf && songInf.al.picUrl, 34, 34)} alt="img"/></div>
+                                <div className="btnrange">
+                                    <div className="header">
+                                        <NavLink to={"/song?id="+songInf.id} className="h_a">
+                                            {songInf.name}
+                                        </NavLink>
+                                    
+
+                                        < NavLink className="h_b" to = {"/artist?id="+songInf.ar[0].id}>
+                                        {songInf.ar[0].name}
+                                        </NavLink>
+                                    
+                                        <span >
+                                        
+                                        
+                                        </span>
+                                        <NavLink  to={"/song?id="+songInf.id}>
+                                            
+                                        </NavLink>
+                                    </div>
+                                    <div className="btm">
+                                        <Slider tipFormatter={null} defaultValue={0} disabled={false} onChange={prograssOnchange} onAfterChange={prograssAfterchange} value={prograss} />
+                                            
+                                        <span className="time">
+                                            <em>{getTimeFormat(prograss / 100 * songInf.dt)}</em>
+                                            {" / "+getTimeFormat(songInf.dt)}
+                                        </span>
+                                    </div>
+                                    
+                                </div>
+                            
+                                <div className="btnlist">
+                                    <div className={"sprite_player orderloop"} onClick={()=>{
+                                        changeSequence()
+                                    }}>
+
+                                    </div>
+                                    <div className="list sprite_player" onClick={()=>{
+                                        setlistshow(!listshow)
+                                    }}>{songList && songList.length}</div>
+                                    
+                                    
+                                </div>
+                            
+                                <audio ref = {
+                                        audioref
+                                    } onEnded={timeEndChangeSong}
+                                    
+                                    onTimeUpdate = {
+                                        (e) => {
+                                            updateTime(e)
+                                        }
+                                    }>
 
                                 </audio>
+                            
+                            
+                            </div>
+                            
+                    }
+                    <div className="updn">
+                        <div className={isClock?"clock_close left f-fl playbar_sprite":"clock_open left f-fl playbar_sprite"} >
+                            <span className="btn playbar_sprite" onClick={(e)=>{setisClock(isClock=>!isClock)}}>
+
+                            </span>
                         </div>
-                   
-                }
+                        <div className="right f-fl playbar_sprite">
 
-            </div>
-
-            {
-           listshow && < WrapContainer >
-            <SongList>
+                        </div>
+                    </div>
                 
-            </SongList>
-        </WrapContainer>}
-       </WrapXJFPlayMusic>
+                </div>
+
+                    {
+                    listshow && < WrapContainer>
+                <SongList>
+                    
+                </SongList>
+            </WrapContainer>}
+            
+        </WrapXJFPlayMusic>
+      
     )
 }
 
